@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulário de Pedido via WhatsApp</title>
+<style>
+body { font-family: Arial, sans-serif; background:#f0f0f0; padding:20px; }
+form { background:white; padding:20px; max-width:600px; margin:auto; border-radius:10px;
+       box-shadow:0 0 10px rgba(0,0,0,0.1); }
+input, textarea {
+  width:100%; padding:10px; margin-top:5px; margin-bottom:15px;
+  border:1px solid #ccc; border-radius:5px;
+}
+button {
+  width:100%; padding:15px; background:#25D366; color:white; border:none;
+  border-radius:5px; font-size:16px; cursor:pointer;
+}
+button:hover { background:#1ebe57; }
+</style>
+</head>
+<body>
+
+<h2 style="text-align:center;">Formulário de Pedido</h2>
+
+<form onsubmit="sendWhatsApp(event)">
+<label>Nome Completo:</label>
+<input id="nome" type="text" required>
+
+<label>CPF:</label>
+<input id="cpf" type="text" required>
+
+<label>E-mail:</label>
+<input id="email" type="email" required>
+
+<label>Qual produto gostaria?</label>
+<input id="produto" type="text" required>
+
+<label>Em qual cor gostaria?</label>
+<input id="cor" type="text">
+
+<label>Qual seria o melhor dia do mês para o vencimento das parcelas?</label>
+<input id="dia" type="number" min="1" value="1">
+
+<h2 style="text-align:center;">Endereço de entrega</h2>
+
+<label>Rua</label>
+<input id="rua" type="text">
+
+<label>Número</label>
+<input id="numero" type="text">
+
+<label>Bairro</label>
+<input id="bairro" type="text">
+
+<label>Cidade</label>
+<input id="cidade" type="text">
+
+<label>Estado</label>
+<input id="estado" type="text">
+
+<label>CEP</label>
+<input id="cep" type="text">
+
+<label>Ponto de referência</label>
+<input id="ponto" type="text">
+
+<button type="submit">Enviar pelo WhatsApp</button>
+</form>
+
+<script>
+function sendWhatsApp(event) {
+    event.preventDefault();
+
+    const phone = "5511975983884";
+
+    const nome = document.getElementById("nome").value;
+    const cpf = document.getElementById("cpf").value;
+    const email = document.getElementById("email").value;
+    const produto = document.getElementById("produto").value;
+    const cor = document.getElementById("cor").value;
+    const dia = document.getElementById("dia").value;
+    const rua = document.getElementById("rua").value;
+    const numero = document.getElementById("numero").value;
+    const bairro = document.getElementById("bairro").value;
+    const cidade = document.getElementById("cidade").value;
+    const estado = document.getElementById("estado").value;
+    const cep = document.getElementById("cep").value;
+    const ponto = document.getElementById("ponto").value;
+
+    const texto = `
+🧾 *NOVO PEDIDO*
+--------------------------------
+• *Nome:* ${nome}
+• *CPF:* ${cpf}
+• *E-mail:* ${email}
+• *Produto:* ${produto}
+• *Cor:* ${cor}
+• *Vencimento:* Dia ${dia}
+
+📍 *Endereço de entrega:*
+• Rua: ${rua}
+• Número: ${numero}
+• Bairro: ${bairro}
+• Cidade: ${cidade}
+• Estado: ${estado}
+• CEP: ${cep}
+• Ponto de referência: ${ponto}
+`;
+
+    const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(texto);
+    window.open(url, "_blank");
+}
+</script>
+
+</body>
+</html>
